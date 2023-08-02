@@ -8,10 +8,12 @@ namespace WebApi.Services
     public class ChannelsServices
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<ChannelsServices> logger;
 
-        public ChannelsServices(ApplicationDbContext context)
+        public ChannelsServices(ApplicationDbContext context, ILogger<ChannelsServices> logger)
         {
             _context = context;
+            this.logger = logger;
         }
 
         public async Task<ActionResult<List<AllChannels>>> GetChannels()
@@ -46,17 +48,12 @@ namespace WebApi.Services
 
         public async Task UpdateSubcriptions(RequestSubcriptionHistory request)
         {
+            logger.LogInformation("Test test");
             var result = await _context.SubscriptionsHistories.Where(x => x.TypeChannelId == request.Id).FirstOrDefaultAsync();
-
-            //var subcriptionHistory = new SubscriptionHistory()
-            //{
             result.TypeChannelId = result.TypeChannelId;
             result.SubscriberId = result.SubscriberId;
             result.UpdateTime = DateTime.Now;
             result.Status = request.Status ? 1 : 0;
-            //};
-
-            //_context.SubscriptionsHistories.Update(subcriptionHistory);
             await _context.SaveChangesAsync();
         }
     }

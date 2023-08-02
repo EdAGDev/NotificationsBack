@@ -276,10 +276,10 @@ namespace WebApi.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubscriberId")
+                    b.Property<int?>("SubscriberId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeChannelId")
+                    b.Property<int?>("TypeChannelId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateTime")
